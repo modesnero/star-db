@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ApiClient from '../../api-client'
 
+import loader from './loader.gif'
 import './random-planet.css'
 
 export default class RandomPlanet extends Component {
@@ -25,6 +26,15 @@ export default class RandomPlanet extends Component {
       planet: { id, name, population, rotationPeriod, diameter }
     } = this.state
     return (
+      <div className='container'>
+        <div className='row justify-content-center'>
+          <div className='col'>
+            <img src={loader} />
+          </div>
+        </div>
+      </div>
+    )
+    /* return (
       <div className='random-planet jumbotron rounded'>
         <img
           className='planet-image'
@@ -49,6 +59,6 @@ export default class RandomPlanet extends Component {
           </ul>
         </div>
       </div>
-    )
+    ) */
   }
 }
