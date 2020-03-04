@@ -3,6 +3,10 @@
   padding: 1rem;
 }
 
+.content {
+  display: flex;
+}
+
 .random-planet .planet-image {
   width: 150px;
   height: 150px;
