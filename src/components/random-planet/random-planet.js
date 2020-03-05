@@ -1,48 +1,8 @@
 import React, { Component } from 'react'
+import { Loader, ErrorIndicator } from '../loader'
 import ApiClient from '../../api-client'
-import Loader from '../loader'
-
+import RandomPlanetView from './random-planet-view'
 import './random-planet.css'
-
-const RandomPlanetView = ({ planet }) => {
-  const { id, name, population, rotationPeriod, diameter } = planet
-  return (
-    <div className='content'>
-      <img
-        className='planet-image'
-        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-        alt='Planet'
-      />
-      <div>
-        <h4>{name}</h4>
-        <ul className='list-group list-group-flush'>
-          <li className='list-group-item'>
-            <span className='term'>Population</span>
-            <span>{population}</span>
-          </li>
-          <li className='list-group-item'>
-            <span className='term'>Rotation Period</span>
-            <span>{rotationPeriod}</span>
-          </li>
-          <li className='list-group-item'>
-            <span className='term'>Diameter</span>
-            <span>{diameter}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  )
-}
-
-const ErrorIndicator = () => {
-  return (
-    <div className='error-indicator'>
-      <span className='boom'>BOOM! </span>
-      <span>Something has going wrong </span>
-      <span>(but we aleady sent droids to fix it)</span>
-    </div>
-  )
-}
 
 export default class RandomPlanet extends Component {
   apiClient = new ApiClient()
@@ -56,6 +16,7 @@ export default class RandomPlanet extends Component {
   constructor () {
     super()
     this.updatePlanet()
+    setInterval(this.updatePlanet, 15000)
   }
 
   onError = err => {
@@ -65,7 +26,7 @@ export default class RandomPlanet extends Component {
 
   updatePlanet = () => {
     console.log(this)
-    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2;
+    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
     this.apiClient
       .getPlanet(id)
       .then(planet => {

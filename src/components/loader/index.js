@@ -1,3 +1,3 @@
-import Loader from './loader'
+import { Loader, ErrorIndicator } from './loader'
 
-export default Loader
+export { Loader, ErrorIndicator }
