@@ -14,18 +14,20 @@ export default class RandomPlanet extends Component {
     error: false
   }
 
-  constructor () {
-    super()
-    this.updatePlanet()
-    setInterval(this.updatePlanet, 3000)
-  }
-
-  onError = err => {
+  onError = () => {
     this.setState({ error: true })
   }
 
+  componentDidMount = () => {
+    this.updatePlanet()
+    this.updateInterval =  setInterval(this.updatePlanet, 3000)
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.updateInterval)
+  }
+
   updatePlanet = () => {
-    console.log(this)
     const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
     this.apiClient
       .getPlanet(id)
