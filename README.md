@@ -1,7 +1,6 @@
 # Star DB
 
-## View App
-[View App](https://modesnero.github.io/star-db/)
+## [View App](https://modesnero.github.io/star-db/)
 
 ## Available Scripts
 
