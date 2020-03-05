@@ -4,7 +4,7 @@ import Loader from '../loader'
 
 import './random-planet.css'
 
-const Content = ({ planet }) => {
+const RandomPlanetView = ({ planet }) => {
   const { id, name, population, rotationPeriod, diameter } = planet
   return (
     <div className='content'>
@@ -34,12 +34,23 @@ const Content = ({ planet }) => {
   )
 }
 
+const ErrorIndicator = () => {
+  return (
+    <div className='error-indicator'>
+      <span className='boom'>BOOM! </span>
+      <span>Something has going wrong </span>
+      <span>(but we aleady sent droids to fix it)</span>
+    </div>
+  )
+}
+
 export default class RandomPlanet extends Component {
   apiClient = new ApiClient()
 
   state = {
     planet: {},
-    loading: true
+    loading: true,
+    error: false
   }
 
   constructor () {
@@ -47,25 +58,31 @@ export default class RandomPlanet extends Component {
     this.updatePlanet()
   }
 
-  updatePlanet () {
-    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
-    this.apiClient.getPlanet(id).then(planet => {
-      this.setState({ planet, loading: false })
-    })
+  onError = err => {
+    this.setState({ error: true })
+    console.error('Loading random planet failed. ', err)
+  }
+
+  updatePlanet = () => {
+    console.log(this)
+    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2;
+    this.apiClient
+      .getPlanet(id)
+      .then(planet => {
+        this.setState({ planet, loading: false })
+      })
+      .catch(this.onError)
   }
 
   render () {
-    const { planet, loading } = this.state
-    
-    const content = loading ? <Loader /> : <Content planet={planet} />
+    const { planet, loading, error } = this.state
+
+    let content = loading ? <Loader /> : <RandomPlanetView planet={planet} />
+    if (error) content = <ErrorIndicator />
 
     let wrapClasses = 'random-planet jumbotron rounded'
-    if (loading) wrapClasses += ' justify-content-center'
+    if (loading || error) wrapClasses += ' justify-content-center'
 
-    return (
-      <div className={wrapClasses}>
-        {content}
-      </div>
-    )
+    return <div className={wrapClasses}>{content}</div>
   }
 }
