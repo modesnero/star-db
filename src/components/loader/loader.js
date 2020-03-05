@@ -11,14 +11,4 @@ const Loader = () => {
   )
 }
 
-const ErrorIndicator = () => {
-  return (
-    <div className='error-indicator'>
-      <span className='boom'>BOOM! </span>
-      <span>Something has going wrong </span>
-      <span>(but we aleady sent droids to fix it)</span>
-    </div>
-  )
-}
-
-export { Loader, ErrorIndicator }
+export default Loader

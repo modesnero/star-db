@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Loader, ErrorIndicator } from '../loader'
+import Loader from '../loader'
+import ErrorIndicator from '../error-indicator'
 import ApiClient from '../../api-client'
 import RandomPlanetView from './random-planet-view'
 import './random-planet.css'
@@ -26,7 +27,8 @@ export default class RandomPlanet extends Component {
 
   updatePlanet = () => {
     console.log(this)
-    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
+    // const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
+    const id = 1200
     this.apiClient
       .getPlanet(id)
       .then(planet => {
@@ -38,7 +40,9 @@ export default class RandomPlanet extends Component {
   render () {
     const { planet, loading, error } = this.state
 
-    let content = loading ? <Loader /> : <RandomPlanetView planet={planet} />
+    let content = loading ?
+      <Loader /> :
+      <RandomPlanetView planet={planet} />
     if (error) content = <ErrorIndicator />
 
     let wrapClasses = 'random-planet jumbotron rounded'
