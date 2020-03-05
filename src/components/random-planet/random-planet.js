@@ -22,13 +22,11 @@ export default class RandomPlanet extends Component {
 
   onError = err => {
     this.setState({ error: true })
-    console.error('Loading random planet failed. ', err)
   }
 
   updatePlanet = () => {
     console.log(this)
-    // const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
-    const id = 1200
+    const id = Math.floor(Math.random() * (15 - 2 + 1)) + 2
     this.apiClient
       .getPlanet(id)
       .then(planet => {
