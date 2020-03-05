@@ -1,5 +1,8 @@
 # Star DB
 
+## View App
+[View App](https://modesnero.github.io/star-db/)
+
 ## Available Scripts
 
 ### `npm install`
